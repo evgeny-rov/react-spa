@@ -5,9 +5,9 @@ export interface ProtectedRouteProps extends RouteProps {
   isAuthenticated: boolean;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = (props) => {
-  if (props.isAuthenticated) {
-    return <Route>{props.children}</Route>;
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAuthenticated, children, ...routeProps }) => {
+  if (isAuthenticated) {
+    return <Route {...routeProps}>{children}</Route>;
   } else {
     return (
       <Route>

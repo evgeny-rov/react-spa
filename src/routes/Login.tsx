@@ -9,6 +9,7 @@ interface props {
 const Login: React.FC<props> = ({ setAuth, isAuthenticated }) => {
   const [formState, setFormState] = useState({ username: '', password: '' });
   const [hasError, setError] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     return setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -16,13 +17,24 @@ const Login: React.FC<props> = ({ setAuth, isAuthenticated }) => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    if (formState.username === 'ass' && formState.password === '070ass') {
-      setFormState({ username: '', password: '' });
-      setError(false);
-      setAuth(true);
-    } else {
-      setError(true);
-    }
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      if (formState.username === 'user' && formState.password === 'user') {
+        setFormState({ username: '', password: '' });
+        setAuth(true);
+      } else {
+        setError(true);
+      }
+    }, 1000);
+  };
+
+  const renderLoading = () => {
+    return (
+      <div className="absolute h-full w-full rounded-xl bg-black opacity-50 z-50 grid place-items-center text-white">
+        <p>Loading...</p>
+      </div>
+    );
   };
 
   if (isAuthenticated) return <Redirect to="/" />;
@@ -30,7 +42,12 @@ const Login: React.FC<props> = ({ setAuth, isAuthenticated }) => {
   return (
     <div className="min-h-screen w-full grid place-items-center bg-gray-300">
       <div className="relative w-96 h-96 grid place-items-center bg-white rounded-xl shadow-md">
-        {hasError && <h1 className="absolute top-12 text-red-500">username or password is incorrect, try again</h1>}
+        {hasError && (
+          <h1 className="absolute top-12 text-red-500">
+            username or password is incorrect, try again
+          </h1>
+        )}
+        {isLoading && renderLoading()}
         <form
           action="#"
           className="grid place-items-center gap-4"
@@ -39,28 +56,34 @@ const Login: React.FC<props> = ({ setAuth, isAuthenticated }) => {
           <input
             type="text"
             name="username"
-            className={`bg-gray-200 p-2 w-40 rounded-md border-2 ${hasError ? 'border-red-500' : 'border-gray-300'}`}
+            className={`bg-gray-200 p-2 w-40 rounded-md border-2 ${
+              hasError ? 'border-red-500' : 'border-gray-300'
+            }`}
             placeholder="Username..."
             autoComplete="username"
             value={formState.username}
             onChange={handleChange}
           />
           <input
-            type="password"
+            type="text"
             name="password"
             autoComplete="current-password"
             placeholder="Password..."
-            className={`bg-gray-200 p-2 w-40 rounded-md border-2 ${hasError ? 'border-red-500' : 'border-gray-300'}`}
+            className={`bg-gray-200 p-2 w-40 rounded-md border-2 ${
+              hasError ? 'border-red-500' : 'border-gray-300'
+            }`}
             value={formState.password}
             onChange={handleChange}
           />
           <button
             type="submit"
+            disabled={isLoading}
             className="bg-yellow-100 uppercase text-xs rounded-md w-40 px-4 py-2 text-gray-800 font-mono"
           >
             log in
           </button>
         </form>
+        <p className="absolute bottom-4 opacity-50">try 'user'</p>
       </div>
     </div>
   );
