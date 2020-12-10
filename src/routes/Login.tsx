@@ -40,8 +40,8 @@ const Login: React.FC<props> = ({ setAuth, isAuthenticated }) => {
   if (isAuthenticated) return <Redirect to="/" />;
 
   return (
-    <div className="min-h-screen w-full grid place-items-center bg-gray-300">
-      <div className="relative w-96 h-96 grid place-items-center bg-white rounded-xl shadow-md">
+    <div className="min-h-screen w-full grid place-items-center">
+      <div className="relative w-96 h-96 grid place-items-center border-2 border-white">
         {hasError && (
           <h1 className="absolute top-12 text-red-500">
             username or password is incorrect, try again
@@ -56,7 +56,7 @@ const Login: React.FC<props> = ({ setAuth, isAuthenticated }) => {
           <input
             type="text"
             name="username"
-            className={`bg-gray-200 p-2 w-40 rounded-md border-2 ${
+            className={`bg-transparent p-2 w-40 border-2 text-white ${
               hasError ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Username..."
@@ -69,7 +69,7 @@ const Login: React.FC<props> = ({ setAuth, isAuthenticated }) => {
             name="password"
             autoComplete="current-password"
             placeholder="Password..."
-            className={`bg-gray-200 p-2 w-40 rounded-md border-2 ${
+            className={`bg-transparent p-2 w-40 border-2 text-white ${
               hasError ? 'border-red-500' : 'border-gray-300'
             }`}
             value={formState.password}
@@ -78,12 +78,12 @@ const Login: React.FC<props> = ({ setAuth, isAuthenticated }) => {
           <button
             type="submit"
             disabled={isLoading}
-            className="bg-yellow-100 uppercase text-xs rounded-md w-40 px-4 py-2 text-gray-800 font-mono"
+            className="bg-white uppercase text-xs w-40 px-4 py-2 text-black font-mono"
           >
             log in
           </button>
         </form>
-        <p className="absolute bottom-4 opacity-50">try 'user'</p>
+        <p className="absolute bottom-4 opacity-25 text-white">try 'user'</p>
       </div>
     </div>
   );

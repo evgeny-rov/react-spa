@@ -1,37 +1,26 @@
 import React from 'react';
-import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
-
-const UserProfile: React.FC = () => {
-  return (
-    <div className="grid place-items-center">
-      <h1>PROFILE PAGE</h1>
-    </div>
-  );
-};
-
-const Messages: React.FC = () => {
-  return (
-    <div className="grid place-items-center">
-      <h1>MESSAGES PAGE</h1>
-    </div>
-  );
-};
+import { Link, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+import Posts from './Posts';
+import Users from './Users';
 
 const Home: React.FC = () => {
   const { url, path } = useRouteMatch();
 
   return (
-    <div>
-      <nav className="flex items-center space-x-4 w-full h-16 p-6 bg-yellow-100">
-        <Link to={`${url}/profile`}>profile</Link>
-        <Link to={`${url}/msg`}>messages</Link>
+    <div className="w-full h-full">
+      <nav className="sticky top-0 flex items-center space-x-4 w-full h-16 p-6 border-b-2 border-white uppercase text-white bg-black">
+        <Link to={`${url}/users`}>users</Link>
+        <Link to={`${url}/posts`}>posts</Link>
       </nav>
       <Switch>
-        <Route exact path={`${path}/profile`}>
-          <UserProfile />
+        <Route exact path={`${path}/users`}>
+          <Users />
         </Route>
-        <Route exact path={`${path}/msg`}>
-          <Messages />
+        <Route exact path={`${path}/posts`}>
+          <Posts />
+        </Route>
+        <Route path={`/home`}>
+          <Redirect to={`${path}/posts`} />
         </Route>
       </Switch>
     </div>
