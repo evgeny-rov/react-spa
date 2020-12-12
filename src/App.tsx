@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import ProtectedRoute from './routes';
+import ProtectedRoute from './routes/ProtectedRoute';
 import Home from './routes/Home';
 import Login from './routes/Login';
+import { AppState } from './redux';
+import { useSelector } from 'react-redux';
 
 const App: React.FC = () => {
-  const [isAuthenticated, setAuth] = useState(false);
+  const { loggedIn } = useSelector((state: AppState) => state.user);
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          {isAuthenticated ? <Redirect to="/home" /> : <Redirect to="/login" />}
+          {loggedIn ? <Redirect to="/home" /> : <Redirect to="/login" />}
         </Route>
-        <ProtectedRoute path="/home" isAuthenticated={isAuthenticated}>
-          <Home />
-        </ProtectedRoute>
-        <Route path="/login">
-          <Login setAuth={setAuth} isAuthenticated={isAuthenticated} />
-        </Route>
+        <ProtectedRoute path="/home" component={Home} />
+        <Route path="/login" component={Login} />
       </Switch>
     </BrowserRouter>
   );
