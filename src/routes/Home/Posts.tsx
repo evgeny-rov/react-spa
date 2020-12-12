@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import truncate from '../utils/truncate';
+import truncate from '../../utils/truncate';
 
 interface post {
   userId: number;
@@ -19,17 +19,16 @@ const Posts: React.FC = () => {
       const data = await response.json();
       setUserData(data);
     };
-
     fetchPosts();
   }, []);
 
   return (
-    <div className="grid w-full place-items-center p-6 text-white">
+    <div className="grid w-full place-items-center p-6">
       <h1>POSTS PAGE</h1>
       <ul className="w-full mt-4">
         {userData.map((post) => {
           return (
-            <li className="grid grid-cols-3 items-start p-2 hover:bg-gray-900">
+            <li className="grid grid-cols-3 items-start p-2" key={post.id}>
               <div>
                 <p>user id:</p>
                 <p>{post.userId}</p>

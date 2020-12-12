@@ -8,7 +8,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="w-full h-full">
-      <nav className="sticky top-0 flex items-center space-x-4 w-full h-16 p-6 border-b-2 border-white uppercase text-white bg-black">
+      <nav className="sticky top-0 flex items-center space-x-4 w-full h-8 p-6 uppercase bg-white shadow-md">
         <Link to={`${url}/users`}>users</Link>
         <Link to={`${url}/posts`}>posts</Link>
       </nav>
@@ -19,7 +19,7 @@ const Home: React.FC = () => {
         <Route exact path={`${path}/posts`}>
           <Posts />
         </Route>
-        <Route path={`/home`}>
+        <Route path={path}>
           <Redirect to={`${path}/posts`} />
         </Route>
       </Switch>
