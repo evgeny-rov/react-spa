@@ -9,7 +9,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({ component, ...routeProps }) => {
     return <Route {...routeProps} component={component} />;
   }
   return (
-    <Route>
+    <Route {...routeProps}>
       <Redirect to="/login" />
     </Route>
   );
