@@ -38,6 +38,8 @@ const userSlice = createSlice({
   initialState: initialUserState,
   reducers: {
     initLogin (state, action) {
+      state.hasError = false;
+      state.loggedIn = false;
       state.isFetching = true;
     },
     succesfulLogin (state) {

@@ -8,6 +8,7 @@ import './index.css';
 import App from './App';
 import rootReducer from './redux';
 import rootSaga from './sagas';
+import ModalSpinner from './components/ModalSpinner';
 
 const sagaMiddleWare = createSagaMiddleware();
 
@@ -18,6 +19,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
+      <ModalSpinner />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
