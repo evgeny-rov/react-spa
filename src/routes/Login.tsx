@@ -5,16 +5,14 @@ import { AppState, userActions } from '../redux';
 
 const Login: React.FC = () => {
   const [formState, setFormState] = useState({ username: '', password: '' });
-  const { loggedIn, hasError, isFetching } = useSelector(
-    (state: AppState) => state.user
-  );
+  const { loggedIn, hasError } = useSelector((state: AppState) => state.user);
   const dispatch = useDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     return setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(userActions.initLogin(formState));
     setFormState({ username: '', password: '' });
@@ -28,19 +26,10 @@ const Login: React.FC = () => {
     );
   };
 
-  const renderLoading = () => {
-    return (
-      <div className="absolute h-full w-full grid place-items-center text-black">
-        <p>Loading...</p>
-      </div>
-    );
-  };
-
   const renderForm = () => {
     const { username, password } = formState;
     const fieldErrorCls = hasError && 'shadow-err';
-    const BtnDisabledConditions =
-      isFetching || username.length < 1 || password.length < 1;
+    const BtnDisabledConditions = username.length < 1 || password.length < 1;
 
     return (
       <div className="relative h-64 w-40 grid place-items-center shadow-md">
@@ -87,7 +76,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full grid place-items-center">
-      {isFetching ? renderLoading() : renderForm()}
+      {renderForm()}
     </div>
   );
 };

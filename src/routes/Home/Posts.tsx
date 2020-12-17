@@ -3,19 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState, postsActions } from '../../redux';
 
 const Posts: React.FC = () => {
-  const { posts, isFetching } = useSelector((state: AppState) => state.posts);
+  const { posts } = useSelector((state: AppState) => state.posts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(postsActions.startFetching());
   }, [dispatch]);
-
-  if (isFetching)
-    return (
-      <div className="grid w-full h-full place-items-center">
-        <span>Loading...</span>
-      </div>
-    );
 
   return (
     <div className="grid w-full place-items-center p-4">
