@@ -6,7 +6,7 @@ interface ApiCall {
   hasError: boolean;
 }
 
-interface Post {
+export interface Post {
   userId: number;
   id: number;
   title: string;
@@ -18,7 +18,7 @@ interface UserState extends ApiCall {
 }
 
 interface PostState extends ApiCall {
-  posts: Post[];
+  data: Post[];
 }
 
 const initialUserState: UserState = {
@@ -28,7 +28,7 @@ const initialUserState: UserState = {
 };
 
 const initialPostsState: PostState = {
-  posts: [],
+  data: [],
   isFetching: false,
   hasError: false,
 };
@@ -70,7 +70,7 @@ const postsSlice = createSlice({
     successfulFetch(state, action) {
       state.isFetching = false;
       state.hasError = false;
-      state.posts = action.payload;
+      state.data = action.payload;
     },
   },
 });
