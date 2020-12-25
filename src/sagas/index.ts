@@ -1,13 +1,14 @@
 import { put, takeEvery, all, call, delay } from 'redux-saga/effects';
-import { fetchPosts, checkCredentials } from '../api';
+import { fetchPosts, getUser } from '../api';
 import { userActions, postsActions } from '../redux';
 
 function* userLogin(action: any) {
-  const isLoginValid = checkCredentials(action.payload);
+  const user = yield call(getUser, action.payload);
+  console.log(user)
   yield delay(1000);
 
-  if (isLoginValid) {
-    yield put({ type: userActions.succesfulLogin });
+  if (user) {
+    yield put({ type: userActions.succesfulLogin, payload: user });
   } else {
     yield put({ type: userActions.failedLogin });
   }

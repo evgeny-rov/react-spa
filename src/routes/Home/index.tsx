@@ -11,12 +11,13 @@ const Home: React.FC = () => {
 
   return (
     <div className="w-full h-full">
-      <nav className="sticky top-0 flex items-center justify-between w-full h-8 p-6 uppercase bg-white shadow-md">
+      <nav className="sticky top-0 px-6 grid grid-cols-3 items-center w-full h-8 uppercase bg-white shadow-md">
         <div className="space-x-4">
           <Link to={`${url}/users`}>users</Link>
           <Link to={`${url}/posts`}>posts</Link>
         </div>
-        <button onClick={() => dispatch(userActions.logOut())}>LOG OUT</button>
+        <div className="justify-self-center">heroSEC</div>
+        <button className="justify-self-end" onClick={() => dispatch(userActions.logOut())}>LOG OUT</button>
       </nav>
       <Switch>
         <Route exact path={`${path}/users`}>

@@ -4,69 +4,54 @@ import { Redirect } from 'react-router-dom';
 import { AppState, userActions } from '../redux';
 
 const Login: React.FC = () => {
-  const [formState, setFormState] = useState({ username: '', password: '' });
+  const [username, setUsername] = useState('');
   const { loggedIn, hasError } = useSelector((state: AppState) => state.user);
   const dispatch = useDispatch();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    return setFormState({ ...formState, [e.target.name]: e.target.value });
-  };
-
   const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(userActions.initLogin(formState));
-    setFormState({ username: '', password: '' });
+    dispatch(userActions.initLogin(username));
+    setUsername('');
   };
 
   const renderErrors = () => {
     return (
       <h1 className="absolute top-2 text-red-500 text-xs text-center">
-        username or password is incorrect, try again
+        username not found.
       </h1>
     );
   };
 
   const renderForm = () => {
-    const { username, password } = formState;
     const fieldErrorCls = hasError && 'shadow-err';
-    const BtnDisabledConditions = username.length < 1 || password.length < 1;
 
     return (
-      <div className="relative h-64 w-40 grid place-items-center shadow-md">
+      <div className="relative h-48 w-60 grid place-items-center">
         {hasError && renderErrors()}
         <form
           action="#"
-          className="grid place-items-center gap-4"
+          className="grid place-items-center w-full"
           onSubmit={handleSubmit}
         >
           <input
             type="text"
             name="username"
-            className={`bg-transparent p-2 w-40 bg-white shadow-inner text-black ${fieldErrorCls}`}
-            placeholder="Username..."
+            className={`bg-transparent p-2 w-full h-10 bg-white shadow-inner rounded-t-md text-black ${fieldErrorCls}`}
+            placeholder="Your GitHub Username..."
             autoComplete="username"
             value={username}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            name="password"
-            autoComplete="current-password"
-            placeholder="Password..."
-            className={`bg-transparent p-2 w-40 bg-white  text-black ${fieldErrorCls}`}
-            value={password}
-            onChange={handleChange}
+            onChange={(e) => setUsername(e.target?.value)}
           />
           <button
             type="submit"
-            disabled={BtnDisabledConditions}
-            className="bg-black uppercase text-xs w-40 px-4 py-2 text-white font-mono disabled:opacity-50"
+            disabled={username.length < 1}
+            className="bg-black uppercase text-xs w-full h-10 rounded-b-md text-white font-mono disabled:opacity-50"
           >
             log in
           </button>
         </form>
-        <p className="absolute bottom-2 opacity-25 text-black text-sm">
-          try 'user'
+        <p className="absolute bottom-2 opacity-25 text-black text-sm text-center">
+          put '*' in front of your username to login as admin
         </p>
       </div>
     );

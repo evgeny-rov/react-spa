@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState, Post, postsActions } from '../../redux';
+import { AppState, postsActions } from '../../redux';
+import { Post } from '../../redux/posts';
 import { filterPostsByString } from '../../utils';
 
 const PostItem: React.FC<Post> = ({ id, userId, title, body }) => {
