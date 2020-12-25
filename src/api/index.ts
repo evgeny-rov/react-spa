@@ -1,12 +1,8 @@
-interface userCredentials {
-  username: string;
-  password: string;
+interface GithubUser {
+  name: string;
+  login: string;
+  avatar_url: string;
 }
-
-const validMockedCredentials: userCredentials = {
-  username: 'user',
-  password: 'user',
-};
 
 export const fetchPosts = async () => {
   const response = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -14,8 +10,24 @@ export const fetchPosts = async () => {
   return data;
 };
 
-export const checkCredentials = ({ username, password }: userCredentials) => {
-  const { username: validName, password: validPassword } = validMockedCredentials;
-  return username === validName && password === validPassword;
+export const getUser = async (username: string) => {
+  const getAsAdmin = username[0] === '*';
+  const userByUsername = getAsAdmin ? username.slice(1) : username;
+  try {
+    const response = await fetch(
+      `https://api.github.com/users/${userByUsername}`
+    );
+    if (response.ok) {
+      const userData: GithubUser = await response.json();
+      return {
+        username: userData.login,
+        avatar_url: userData.avatar_url,
+        isAdmin: getAsAdmin,
+      };
+    }
+    return null;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 };
-

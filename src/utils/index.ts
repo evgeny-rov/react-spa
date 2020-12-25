@@ -1,4 +1,4 @@
-import { Post } from '../redux';
+import { Post } from '../redux/posts';
 
 const normalizeString = (str: string) => str.trim().toLowerCase();
 
