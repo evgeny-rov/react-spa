@@ -4,7 +4,6 @@ import { userActions, postsActions } from '../redux';
 
 function* userLogin(action: any) {
   const user = yield call(getUser, action.payload);
-  console.log(user)
   yield delay(1000);
 
   if (user) {

@@ -12,10 +12,10 @@ export const fetchPosts = async () => {
 
 export const getUser = async (username: string) => {
   const getAsAdmin = username[0] === '*';
-  const usernameQuery = getAsAdmin ? username.slice(1) : username;
+  const userByUsername = getAsAdmin ? username.slice(1) : username;
   try {
     const response = await fetch(
-      `https://api.github.com/users/${usernameQuery}`
+      `https://api.github.com/users/${userByUsername}`
     );
     if (response.ok) {
       const userData: GithubUser = await response.json();

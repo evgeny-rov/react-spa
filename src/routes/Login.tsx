@@ -1,4 +1,4 @@
-import React, { ChangeEvent, SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { AppState, userActions } from '../redux';
@@ -16,8 +16,8 @@ const Login: React.FC = () => {
 
   const renderErrors = () => {
     return (
-      <h1 className="absolute top-2 text-red-500 text-xs text-center">
-        username not found.
+      <h1 className="absolute top-4 text-red-500 text-xs text-center">
+        user is not found.
       </h1>
     );
   };
@@ -51,7 +51,7 @@ const Login: React.FC = () => {
           </button>
         </form>
         <p className="absolute bottom-2 opacity-25 text-black text-sm text-center">
-          put '*' in front of your username to login as admin
+          put '*' in front of your username to login as admin.
         </p>
       </div>
     );

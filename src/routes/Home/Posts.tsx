@@ -30,14 +30,16 @@ const Posts: React.FC = () => {
   const posts = useSelector((state: AppState) =>
     filterPostsByString(state.posts.data, searchQuery)
   );
+  const userIsAdmin = useSelector(
+    (state: AppState) => state.user.data?.isAdmin
+  );
 
   useEffect(() => {
     dispatch(postsActions.startFetching());
   }, [dispatch]);
 
-  return (
-    <div className="grid w-full place-items-center p-4">
-      <h1>POSTS PAGE</h1>
+  const renderAdminContent = () => {
+    return (
       <div className="w-full mt-2 px-2 max-w-lg">
         <input
           className="bg-white w-full rounded-full px-4 py-1 shadow-md"
@@ -48,6 +50,13 @@ const Posts: React.FC = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
+    );
+  };
+
+  return (
+    <div className="grid w-full place-items-center p-4">
+      <h1>POSTS PAGE</h1>
+      {userIsAdmin && renderAdminContent()}
       <ul className="w-full mt-6 flex flex-wrap justify-evenly">
         {posts.map(PostItem)}
       </ul>
