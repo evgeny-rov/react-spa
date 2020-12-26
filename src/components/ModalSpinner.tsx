@@ -7,7 +7,8 @@ const modalRoot: any = document.getElementById('modal-root');
 
 const Modal: React.FC = () => {
   const showLoading = useSelector(
-    ({ posts, user }: AppState) => posts.isFetching || user.isFetching
+    ({ posts, user, repos }: AppState) =>
+      posts.isFetching || user.isFetching || repos.isFetching
   );
 
   const modalContent = (
